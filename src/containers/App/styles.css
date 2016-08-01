@@ -1,0 +1,15 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+:root {
+  min-height: 100%;
+  min-width: 100%;
+}
+
+.app {
+  text-align: center;
+}
+

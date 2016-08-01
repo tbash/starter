@@ -1,0 +1,26 @@
+import React from 'react';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { Router, Route, browserHistory } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
+import configureStore from './store';
+
+import './containers/App/styles.css';
+
+const store = configureStore();
+import { selectLocationState } from './containers/App/selectors';
+const history = syncHistoryWithStore(browserHistory, store, {
+  selectLocationState: selectLocationState(),
+});
+
+import App from './containers/App';
+
+render(
+  <Provider store={store}>
+    <Router history={history}>
+      <Route path="/" component={App}>
+      </Route>
+    </Router>
+  </Provider>,
+  document.getElementById('root')
+);
