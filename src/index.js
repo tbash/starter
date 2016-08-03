@@ -5,10 +5,10 @@ import { Router, Route, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import configureStore from './store';
 
-import './containers/App/styles.css';
-
 const store = configureStore();
+
 import { selectLocationState } from './containers/App/selectors';
+
 const history = syncHistoryWithStore(browserHistory, store, {
   selectLocationState: selectLocationState(),
 });
