@@ -1,11 +1,11 @@
-// import { take, call, put, select } from 'redux-saga/effects';
+import { take, call, put, select } from 'redux-saga/effects';
+import {
+  DEFAULT_ACTION,
+} from './constants';
 
 // Individual exports for testing
-export function* defaultSaga() {
-  return;
+export default function* defaultSaga() {
+  while (true) {
+    let def = yield take(DEFAULT_ACTION)
+  }
 }
-
-// All sagas to be loaded
-export default [
-  defaultSaga,
-];
