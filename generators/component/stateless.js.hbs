@@ -7,13 +7,13 @@
 import React from 'react';
 
 {{#if wantCSS}}
-import styles from './styles.css';
+import './styles.css';
 {{/if}}
 
-function {{ properCase name }}() {
+const {{ properCase name }} = () => {
   return (
     {{#if wantCSS}}
-    <div className="">
+    <div className=''>
     {{else}}
     <div>
     {{/if}}

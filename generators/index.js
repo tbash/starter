@@ -13,7 +13,7 @@ module.exports = (plop) => {
   plop.setGenerator('container', containerGenerator);
   plop.addHelper('directory', (comp) => {
     try {
-      fs.accessSync(`app/containers/${comp}`, fs.F_OK);
+      fs.accessSync(`src/containers/${comp}`, fs.F_OK);
       return `containers/${comp}`;
     } catch (e) {
       return `components/${comp}`;

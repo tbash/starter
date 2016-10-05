@@ -41,14 +41,12 @@ export class {{ properCase name }} extends React.Component { // eslint-disable-l
 const mapStateToProps = select{{properCase name}}();
 {{/if}}
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
+const mapDispatchToProps = (dispatch) => ({
+  dispatch,
+});
 
 {{#if wantActionsAndReducer}}
 export default connect(mapStateToProps, mapDispatchToProps)({{ properCase name }});
 {{else}}
-export default connect(mapDispatchToProps)({{ properCase name }});
+export default connect(null, mapDispatchToProps)({{ properCase name }});
 {{/if}}
