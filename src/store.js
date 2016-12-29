@@ -3,15 +3,12 @@ import { fromJS } from 'immutable';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './sagas'
 import createReducer from './reducers';
-import { browserHistory } from 'react-router';
-import { routerMiddleware } from 'react-router-redux';
 
 const sagaMiddleware = createSagaMiddleware();
 const devtools = window.devToolsExtension || (() => noop => noop);
 
 export default function configureStore(initialState = {}) {
   const middlewares = [
-    routerMiddleware(browserHistory),
     sagaMiddleware,
   ];
 

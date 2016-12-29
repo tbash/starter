@@ -22,7 +22,7 @@ module.exports = {
     type: 'confirm',
     name: 'wantHeaders',
     default: false,
-    message: 'Do you want headers?',
+    message: 'Do you want headers? (requires the react-helmet dep)',
   }, {
     type: 'confirm',
     name: 'wantCSS',
