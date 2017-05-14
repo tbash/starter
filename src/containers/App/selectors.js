@@ -16,7 +16,9 @@ const selectAppDomain = () => state => state.get('app');
 
 const selectApp = () => createSelector(
   selectAppDomain(),
-  (substate) => substate.toJS()
+  substate => ({
+    user: substate.get('user')
+  })
 );
 
 export default selectApp;

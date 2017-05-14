@@ -1,10 +1,10 @@
-// import {{ properCase name }} from '../index';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {{ properCase name }} from '../index';
 
-import expect from 'expect';
-// import React from 'react';
+it('renders without crashing', () => {
+  const div = document.createElement('div');
+  const props = {};
 
-describe('<{{ properCase name }} />', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
-  });
+  ReactDOM.render(<{{ properCase name }} {...props}/>, div);
 });

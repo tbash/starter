@@ -25,11 +25,6 @@ module.exports = {
     message: 'Do you want headers? (requires the react-helmet dep)',
   }, {
     type: 'confirm',
-    name: 'wantCSS',
-    default: false,
-    message: 'Does it have styling?',
-  }, {
-    type: 'confirm',
     name: 'wantActionsAndReducer',
     default: true,
     message: 'Do you want an actions/constants/selectors/reducer tupel for this container?',
@@ -37,7 +32,7 @@ module.exports = {
     type: 'confirm',
     name: 'wantSagas',
     default: true,
-    message: 'Do you want sagas for asynchronous flows? (e.g. fetching data)',
+    message: 'Do you want sagas for asynchronous flows? (e.g. fetching data, requires the redux-saga dep)',
   }],
   actions: data => {
     // Generate index.js and index.test.js
@@ -52,16 +47,6 @@ module.exports = {
       templateFile: './container/test.js.hbs',
       abortOnFail: true,
     }];
-
-    // If they want a CSS file, add styles.css
-    if (data.wantCSS) {
-      actions.push({
-        type: 'add',
-        path: '../src/containers/{{properCase name}}/styles.css',
-        templateFile: './container/styles.css.hbs',
-        abortOnFail: true,
-      });
-    }
 
     // If they want actions and a reducer, generate actions.js, constants.js,
     // reducer.js and the corresponding tests for actions and the reducer

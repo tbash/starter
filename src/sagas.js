@@ -1,9 +1,9 @@
-import { fork } from 'redux-saga/effects';
-import defaultSaga from './containers/App/sagas';
+import { all, /* fork */ } from 'redux-saga/effects';
+// import appSaga from './containers/App/sagas';
 
 // Collect Sagas and fork from containers
 export default function * root () {
-  yield [
-    fork(defaultSaga),
-  ];
+  yield all([
+    //    fork(appSaga),
+  ]);
 }

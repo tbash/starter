@@ -1,9 +1,21 @@
 import { combineReducers } from 'redux-immutable';
 
-import app from './containers/App/reducer';
+import appReducer from 'containers/App/reducer';
 
-export default function createReducer() {
-  return combineReducers({
-    app,
-  });
-}
+const CLEAR_STATE = '@@react-starter/CLEAR_STATE';
+
+const clearState = () => ({ type: CLEAR_STATE });
+
+const mainReducer = combineReducers({
+  app: appReducer,
+});
+
+const createReducer = (state, action) =>
+  action.type === CLEAR_STATE
+    ? mainReducer(undefined, action)
+    : mainReducer(state, action);
+
+export default createReducer;
+export {
+  clearState,
+};

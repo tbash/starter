@@ -6,15 +6,19 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import Wrapper from './Wrapper';
 import selectApp from './selectors';
-import './styles.css';
 
-const App = (props) => {
-  return (
-    <div className="app">
-      oh hey
-    </div>
-  );
+import H1 from 'components/H1';
+
+export class App extends React.PureComponent {
+  render() {
+    return (
+      <Wrapper>
+        <H1>oh hey, {this.props.user}</H1>
+      </Wrapper>
+    );
+  }
 }
 
 const mapStateToProps = selectApp();

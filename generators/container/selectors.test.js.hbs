@@ -1,11 +1,8 @@
-// import { select{{ properCase name }}Domain } from '../selectors';
-// import { fromJS } from 'immutable';
-import expect from 'expect';
+import { select{{ properCase name }}Domain } from '../selectors';
+import { fromJS } from 'immutable';
 
-// const selector = select{{ properCase name}}Domain();
-
-describe('select{{ properCase name }}Domain', () => {
-  it('Expect to have unit tests specified', () => {
-    expect('Test case').toEqual(false);
-  });
+it('returns the app slice from the state', () => {
+  const {{ camelCase name }}State = 'Some string';
+  const state = fromJS({ {{ camelCase name }}: {{ camelCase name }}State });
+  expect(select{{ properCase name }}Domain()(state)).toEqual({{ camelCase name }}State);
 });

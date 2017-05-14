@@ -12,18 +12,11 @@ import Helmet from 'react-helmet';
 {{#if wantActionsAndReducer}}
 import select{{properCase name}} from './selectors';
 {{/if}}
-{{#if wantCSS}}
-import './styles.css';
-{{/if}}
 
 export class {{ properCase name }} extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      {{#if wantCSS}}
-      <div className="{{ camelCase name }}">
-      {{else}}
       <div>
-      {{/if}}
       {{#if wantHeaders}}
       <Helmet
         title="{{properCase name}}"

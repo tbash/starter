@@ -1,11 +1,8 @@
-// import { selectAppDomain } from '../selectors';
-// import { fromJS } from 'immutable';
-import expect from 'expect';
+import { selectAppDomain } from '../selectors';
+import { fromJS } from 'immutable';
 
-// const selector = selectAppDomain();
-
-describe('selectAppDomain', () => {
-  it('Expect to have unit tests specified', () => {
-    expect('Test case').toEqual(false);
-  });
+it('returns the app slice from the state', () => {
+  const appState = 'Some string';
+  const state = fromJS({ app: appState });
+  expect(selectAppDomain()(state)).toEqual(appState);
 });
