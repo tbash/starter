@@ -3,8 +3,6 @@ import { injectGlobal } from 'styled-components';
 export const colors = {
   PRIMARY:   "",
   SECONDARY: "",
-  LIGHT:     "",
-  DARK:      "",
 }
 
 /* eslint no-unused-expressions: 0 */
@@ -18,7 +16,17 @@ injectGlobal`
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    background-color: ${colors.LIGHT};
-    color: ${colors.DARK};
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  button,
+  input {
+    border: 0;
+    padding: 0;
+    color: inherit;
+    background-color: inherit;
   }
 `;
