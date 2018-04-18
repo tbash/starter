@@ -1,21 +1,15 @@
 const webpack = require("webpack");
 const path = require("path");
-const glob = require("glob");
+const glob = require("glob-all");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const PurgecssPlugin = require("purgecss-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
-class TailwindExtractor {
-  static extract(content) {
-    return content.match(/[A-z0-9-:\/]+/g) || [];
-  }
-}
-
 module.exports = {
   output: {
     publicPath: "/",
-    chunkFilename: "static/[name].bundle.js",
+    chunkFilename: "static/[name].bundle.[hash:8].js",
     filename: "static/main.[hash:8].js"
   },
   plugins: [
@@ -36,10 +30,16 @@ module.exports = {
     }),
     new ExtractTextPlugin("static/main.[hash:8].css"),
     new PurgecssPlugin({
-      paths: glob.sync("src/**/*.*"),
+      whitelist: ["body", "html"],
+      paths: glob.sync([
+        path.join(__dirname, "src/**/*.js"),
+        path.join(__dirname, "src/**/*.elm")
+      ]),
       extractors: [
         {
-          extractor: TailwindExtractor,
+          extractor: {
+            extract: c => c.match(/[A-z0-9-:\/]+/g) || []
+          },
           extensions: ["elm", "js"]
         }
       ]
@@ -59,6 +59,12 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.svg$/,
+        use: {
+          loader: "svg-inline-loader"
+        }
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
@@ -73,7 +79,8 @@ module.exports = {
                   }
                 }
               ]
-            ]
+            ],
+            plugins: ["syntax-dynamic-import"]
           }
         }
       },

@@ -30,12 +30,19 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.svg$/,
+        use: {
+          loader: "svg-inline-loader"
+        }
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["babel-preset-env"]
+            presets: ["babel-preset-env"],
+            plugins: ["syntax-dynamic-import"]
           }
         }
       },
