@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const PurgecssPlugin = require("purgecss-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = {
   output: {
@@ -54,7 +55,11 @@ module.exports = {
         }
       ],
       {}
-    )
+    ),
+    new CompressionPlugin({
+      test: /\.js$|\.css$|\.html$/,
+      exclude: /index\.html$/
+    })
   ],
   module: {
     rules: [

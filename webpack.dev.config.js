@@ -68,6 +68,7 @@ module.exports = {
     contentBase: "./public",
     watchContentBase: true,
     hot: true,
+    overlay: true,
     historyApiFallback: {
       disableDotRule: true
     }
