@@ -1,17 +1,28 @@
 const webpack = require("webpack");
 const path = require("path");
-const glob = require("glob-all");
+const glob = require("glob");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const PurgecssPlugin = require("purgecss-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
   output: {
     publicPath: "/",
     chunkFilename: "static/[name].bundle.[hash:8].js",
     filename: "static/main.[hash:8].js"
+  },
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        cache: true,
+        parallel: true
+      }),
+      new OptimizeCSSAssetsPlugin({})
+    ]
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -29,13 +40,10 @@ module.exports = {
         minifyURLs: true
       }
     }),
-    new ExtractTextPlugin("static/main.[hash:8].css"),
+    new MiniCssExtractPlugin({ filename: "static/main.[hash:8].css" }),
     new PurgecssPlugin({
       whitelist: ["body", "html"],
-      paths: glob.sync([
-        path.join(__dirname, "src/**/*.js"),
-        path.join(__dirname, "src/**/*.elm")
-      ]),
+      paths: glob.sync("src/**/*", { nodir: true }),
       extractors: [
         {
           extractor: {
@@ -91,24 +99,31 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: [
-            {
-              loader: "css-loader",
-              options: {
-                importLoaders: 1,
-                minimize: { discardComments: { removeAll: true } }
-              }
-            },
-            "postcss-loader"
-          ]
-        })
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          {
+            loader: "css-loader",
+            options: {
+              importLoaders: 1,
+              minimize: { discardComments: { removeAll: true } }
+            }
+          },
+          {
+            loader: "postcss-loader"
+          }
+        ]
       },
       {
         test: /\.elm$/,
         exclude: [/elm-stuff/, /node_modules/],
-        loader: "elm-webpack-loader"
+        loader: "elm-webpack-loader",
+        options: {
+          cwd: __dirname,
+          runtimeOptions: "-A128m -H128m -n8m",
+          optimize: true
+        }
       }
     ]
   }

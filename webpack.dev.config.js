@@ -54,8 +54,9 @@ module.exports = {
         exclude: [/elm-stuff/, /node_modules/],
         loader: "elm-webpack-loader",
         options: {
-          debug: true,
-          warn: true
+          cwd: __dirname,
+          runtimeOptions: "-A128m -H128m -n8m",
+          debug: true
         }
       }
     ]
