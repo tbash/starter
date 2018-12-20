@@ -1,6 +1,6 @@
 const webpack = require("webpack");
 const path = require("path");
-const glob = require("glob");
+const glob = require("glob-all");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const PurgecssPlugin = require("purgecss-webpack-plugin");
@@ -43,7 +43,14 @@ module.exports = {
     new MiniCssExtractPlugin({ filename: "static/main.[hash:8].css" }),
     new PurgecssPlugin({
       whitelist: ["body", "html"],
-      paths: glob.sync("src/**/*", { nodir: true }),
+      paths: glob.sync(
+        [
+          path.join(__dirname, "src/**/*.js"),
+          path.join(__dirname, "src/**/*.elm"),
+          path.join(__dirname, "public/static/index.html")
+        ],
+        { nodir: true }
+      ),
       extractors: [
         {
           extractor: {
@@ -55,6 +62,10 @@ module.exports = {
     }),
     new CopyWebpackPlugin(
       [
+        {
+          from: "public/assets/",
+          to: "assets/"
+        },
         {
           from: "public/favicon.ico"
         },
@@ -94,6 +105,15 @@ module.exports = {
               ]
             ],
             plugins: ["syntax-dynamic-import"]
+          }
+        }
+      },
+      {
+        test: /\.(ttf|eot|woff|woff2)$/,
+        use: {
+          loader: "file-loader",
+          options: {
+            name: "fonts/[name].[ext]"
           }
         }
       },

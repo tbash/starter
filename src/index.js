@@ -1,4 +1,9 @@
 import { Elm } from "./Main.elm";
 import "./Main.css";
+import UiIcon from "./Ui/Icon";
 
-Elm.Main.init({});
+document.addEventListener("DOMContentLoaded", () => {
+  const app = Elm.Main.init({});
+
+  UiIcon.start(app);
+});

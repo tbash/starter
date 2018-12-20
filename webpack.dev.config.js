@@ -17,6 +17,10 @@ module.exports = {
     new CopyWebpackPlugin(
       [
         {
+          from: "public/assets/",
+          to: "assets/"
+        },
+        {
           from: "public/favicon.ico"
         },
         {
@@ -42,6 +46,15 @@ module.exports = {
           options: {
             presets: ["babel-preset-env"],
             plugins: ["syntax-dynamic-import"]
+          }
+        }
+      },
+      {
+        test: /\.(ttf|eot|woff|woff2)$/,
+        use: {
+          loader: "file-loader",
+          options: {
+            name: "fonts/[name].[ext]"
           }
         }
       },

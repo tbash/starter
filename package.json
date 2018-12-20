@@ -1,13 +1,15 @@
 {
-  "name": "the-ok",
+  "name": "starter",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "webpack --mode production --config webpack.prod.config.js",
-    "start": "webpack-dev-server --mode development --port 3000 --config webpack.dev.config.js"
+    "start": "webpack-dev-server --mode development --port 3000 --config webpack.dev.config.js",
+    "deploy": "npm run build && aws s3 sync dist/ s3://$AWS_S3_BUCKET --cache-control max-age=172800 --delete && aws configure set preview.cloudfront true && aws cloudfront create-invalidation --distribution-id $AWS_DISTRIBUTION_ID --paths /index.html"
   },
   "devDependencies": {
+    "@webcomponents/custom-elements": "^1.2.1",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
@@ -16,8 +18,11 @@
     "copy-webpack-plugin": "^4.5.3",
     "css-loader": "^1.0.0",
     "elm-webpack-loader": "^5.0.0",
+    "file-loader": "^2.0.0",
+    "glob-all": "^3.1.0",
     "html-webpack-plugin": "3.2.0",
     "mini-css-extract-plugin": "^0.4.4",
+    "newless": "^0.3.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.1.0",
