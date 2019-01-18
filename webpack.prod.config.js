@@ -5,14 +5,12 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const PurgecssPlugin = require("purgecss-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const CompressionPlugin = require("compression-webpack-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
   output: {
     publicPath: "/",
-    chunkFilename: "static/[name].bundle.[hash:8].js",
+    chunkFilename: "static/[name].bundle.[chunkhash:8].js",
     filename: "static/main.[hash:8].js"
   },
   optimization: {
@@ -20,8 +18,7 @@ module.exports = {
       new TerserPlugin({
         cache: true,
         parallel: true
-      }),
-      new OptimizeCSSAssetsPlugin({})
+      })
     ]
   },
   plugins: [
@@ -74,11 +71,7 @@ module.exports = {
         }
       ],
       {}
-    ),
-    new CompressionPlugin({
-      test: /\.js$|\.css$|\.html$/,
-      exclude: /index\.html$/
-    })
+    )
   ],
   module: {
     rules: [
