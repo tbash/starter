@@ -3,16 +3,16 @@ module Route exposing (Route(..), fromUrl, href)
 import Html exposing (Attribute)
 import Html.Attributes as Attributes
 import Url exposing (Url)
-import Url.Parser as Parser exposing ((</>), Parser, oneOf, s, string)
+import Url.Parser as Parser exposing ((</>), Parser)
 
 
 type Route
-    = Home 
+    = Home
 
 
 parser : Parser (Route -> a) a
 parser =
-    oneOf
+    Parser.oneOf
         [ Parser.map Home Parser.top
         ]
 

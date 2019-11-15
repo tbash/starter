@@ -4,20 +4,18 @@ import Browser exposing (Document)
 import Html exposing (Html)
 import Html.Attributes as Attributes
 import Route exposing (Route)
-import Ui.Icon as Icon
 
 
 type Page
     = Other
-    | Home 
+    | Home
 
 
 view : Page -> { title : String, content : Html msg } -> Document msg
 view page { title, content } =
-    { title = title ++ " - Starter"
+    { title = title ++ " - starter"
     , body =
-        [ Icon.sprite
-        , viewHeader page
+        [ viewHeader page
         , viewContent content
         , viewFooter
         ]
@@ -27,6 +25,7 @@ view page { title, content } =
 viewHeader : Page -> Html msg
 viewHeader page =
     Html.nav [ Attributes.class "" ] []
+
 
 viewContent : Html msg -> Html msg
 viewContent content =
@@ -38,6 +37,7 @@ viewContent content =
 viewFooter : Html msg
 viewFooter =
     Html.footer [ Attributes.class "" ] []
+
 
 isActive : Page -> Route -> Bool
 isActive page route =
